@@ -1,8 +1,9 @@
 (()=>{
 var downPos = 300;
 
+window.onmouseover = func();
 
-window.onload = func();
+
 
 function func(){
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -24,11 +25,7 @@ var scrollTop = (window.pageYOffset !== undefined) ? window.pageYOffset : (docum
     recog.start();
 
    
-      
-     
-
 }, 1000);
-
 
 
 recog.addEventListener("result",(e)=>{
@@ -37,7 +34,7 @@ recog.addEventListener("result",(e)=>{
     scrollTop = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
     if(e.results[0][0].transcript == "scroll"){
         console.log(e.results[0][0].transcript);
-     scroll({
+      scroll({
             top: scrollTop + downPos,
            
             behavior: "smooth"
@@ -50,13 +47,23 @@ recog.addEventListener("result",(e)=>{
        
     }
 
-    
+    if(e.results[0][0].transcript == "refresh"){
+        location.reload();
+    }
+
+    if(e.results[0][0].transcript == "up"){
+        scroll({
+             top: scrollTop - downPos,
+           
+            behavior: "smooth"
+           });
+    }
+
+    if(e.results[0][0].transcript == "skip"){
+        document.getElementsByClassName("ytp-ad-skip-button ytp-button")[0].click();
+    }
 
 });
-
-
-
-
 
 
 
